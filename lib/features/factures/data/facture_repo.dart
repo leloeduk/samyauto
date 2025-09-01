@@ -29,4 +29,9 @@ class FactureRepository {
   FactureModel? getById(String id) {
     return _box.get(id);
   }
+
+  Future<List<FactureModel>> getAllAsync() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    return _box.values.toList();
+  }
 }
