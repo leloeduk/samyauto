@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:samyauto/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:samyauto/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:samyauto/features/factures/presentation/bloc/facture_bloc.dart';
 import 'core/hive/hive_setup.dart';
+import 'features/dashboard/presentation/bloc/dashboard_event.dart';
 import 'features/factures/data/facture_repo.dart';
 import 'features/services/data/service_repo.dart';
 import 'features/services/presentation/bloc/service_bloc.dart';
@@ -23,6 +25,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => DashboardBloc(
+            serviceRepo: ServiceRepository(),
+            factureRepo: FactureRepository(),
+          )..add(LoadDashboard()),
+        ),
         BlocProvider(
           create: (_) => ServiceBloc(ServiceRepository())..add(LoadServices()),
           child: ServiceFormPage(),
