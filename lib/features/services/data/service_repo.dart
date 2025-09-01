@@ -29,4 +29,9 @@ class ServiceRepository {
   ServiceModel? getById(String id) {
     return _box.get(id);
   }
+
+  Future<List<ServiceModel>> getAllAsync() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    return _box.values.toList();
+  }
 }
