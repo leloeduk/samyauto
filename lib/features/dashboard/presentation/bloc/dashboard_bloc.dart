@@ -10,10 +10,15 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
   DashboardBloc({required this.serviceRepo, required this.factureRepo})
     : super(DashboardInitial()) {
-    on<LoadDashboard>((event, emit) {
+    on<LoadDashboard>((event, emit) async {
+      emit(DashboardInitial()); // optionnel
       try {
-        final services = serviceRepo.getAll();
-        final factures = factureRepo.getAll();
+        // Simuler un délai ou récupérer depuis DB/API
+        await Future.delayed(const Duration(milliseconds: 300));
+
+        final services = await serviceRepo.getAllAsync();
+        final factures = await factureRepo.getAllAsync();
+
         final totalCA = factures.fold<double>(
           0,
           (previousValue, f) => previousValue + f.montantTotal,
