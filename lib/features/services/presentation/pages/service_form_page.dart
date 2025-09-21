@@ -81,11 +81,13 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
           key: _formKey,
           child: ListView(
             children: [
+              SizedBox(height: 16),
               TextFormField(
                 controller: _nomController,
                 decoration: const InputDecoration(labelText: 'Nom du service'),
                 validator: (value) => value!.isEmpty ? 'Obligatoire' : null,
               ),
+              SizedBox(height: 16),
               TextFormField(
                 controller: _prixController,
                 decoration: const InputDecoration(
@@ -94,6 +96,7 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
                 keyboardType: TextInputType.number,
                 validator: (value) => value!.isEmpty ? 'Obligatoire' : null,
               ),
+              SizedBox(height: 16),
               TextFormField(
                 controller: _commissionController,
                 decoration: const InputDecoration(
@@ -102,12 +105,13 @@ class _ServiceFormPageState extends State<ServiceFormPage> {
                 keyboardType: TextInputType.number,
                 validator: (value) => value!.isEmpty ? 'Obligatoire' : null,
               ),
+              SizedBox(height: 16),
               TextFormField(
                 controller: _descriptionController,
                 decoration: const InputDecoration(labelText: 'Description'),
                 maxLines: 3,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: _saveService,
                 child: const Text('Enregistrer'),

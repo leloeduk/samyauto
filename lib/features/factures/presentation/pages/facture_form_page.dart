@@ -92,11 +92,13 @@ class _FactureFormPageState extends State<FactureFormPage> {
           key: _formKey,
           child: ListView(
             children: [
+              SizedBox(height: 16),
               TextFormField(
                 controller: _nomClientController,
                 decoration: const InputDecoration(labelText: 'Nom du client'),
                 validator: (value) => value!.isEmpty ? 'Obligatoire' : null,
               ),
+              SizedBox(height: 20),
               DropdownButtonFormField<ServiceModel>(
                 initialValue: _selectedService,
                 items: _services
@@ -107,13 +109,14 @@ class _FactureFormPageState extends State<FactureFormPage> {
                 validator: (value) =>
                     value == null ? 'Sélectionner un service' : null,
               ),
+              SizedBox(height: 20),
               TextFormField(
                 controller: _montantController,
                 decoration: const InputDecoration(labelText: 'Montant (FCFA)'),
                 keyboardType: TextInputType.number,
                 validator: (value) => value!.isEmpty ? 'Obligatoire' : null,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: _saveFacture,
                 child: const Text('Enregistrer'),

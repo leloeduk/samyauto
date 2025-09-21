@@ -4,6 +4,7 @@ import 'package:samyauto/features/dashboard/presentation/bloc/dashboard_bloc.dar
 import 'package:samyauto/features/dashboard/presentation/pages/dashboard_page.dart';
 import 'package:samyauto/features/factures/presentation/bloc/facture_bloc.dart';
 import 'core/hive/hive_setup.dart';
+import 'core/theme/theme.dart';
 import 'features/dashboard/presentation/bloc/dashboard_event.dart';
 import 'features/factures/data/facture_repo.dart';
 import 'features/services/data/service_repo.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Samy auto Offline',
-        theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
+        theme: AppTheme.lightTheme,
         home: const DashboardPage(),
       ),
     );

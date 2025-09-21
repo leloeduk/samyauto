@@ -22,46 +22,95 @@ class FactureListPage extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             } else if (state is FactureLoaded) {
               final factures = state.factures;
-              if (factures.isEmpty)
+              if (factures.isEmpty) {
                 return const Center(child: Text('Aucune facture disponible.'));
+              }
               return ListView.builder(
                 itemCount: factures.length,
                 itemBuilder: (context, index) {
                   final facture = factures[index];
-                  return ListTile(
-                    title: Text(facture.numeroFacture),
-                    subtitle: Text(
-                      "Client: ${facture.nomClient} - Montant: ${facture.montantTotal} FCFA",
+                  return Card(
+                    elevation: 2,
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 6,
+                      horizontal: 12,
                     ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.picture_as_pdf),
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) =>
-                                  FacturePdfPreviewPage(facture: facture),
+                    child: ListTile(
+                      title: Text(
+                        facture.numeroFacture,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                      subtitle: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Client: ${facture.nomClient}"),
+                                  Text("Montant: ${facture.montantTotal} FCFA"),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: Colors.green.shade800,
+                                  size: 30,
+                                ),
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        FactureFormPage(facture: facture),
+                                  ),
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red.shade800,
+                                  size: 30,
+                                ),
+                                onPressed: () => context
+                                    .read<FactureBloc>()
+                                    .add(DeleteFacture(facture)),
+                              ),
+                            ],
+                          ),
+                          ElevatedButton(
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    FacturePdfPreviewPage(facture: facture),
+                              ),
                             ),
+                            child: const Text('Aperçu PDF'),
                           ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => FactureFormPage(facture: facture),
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () => context.read<FactureBloc>().add(
-                            DeleteFacture(facture),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      // trailing: IconButton(
+                      //   icon: Icon(
+                      //     Icons.picture_as_pdf,
+                      //     color: Colors.red.shade700,
+                      //     size: 60,
+                      //   ),
+                      //   onPressed: () => Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (_) =>
+                      //           FacturePdfPreviewPage(facture: facture),
+                      //     ),
+                      //   ),
+                      // ),
                     ),
                   );
                 },

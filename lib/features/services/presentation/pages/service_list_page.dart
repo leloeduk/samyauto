@@ -28,30 +28,55 @@ class ServiceListPage extends StatelessWidget {
                 itemCount: services.length,
                 itemBuilder: (context, index) {
                   final service = services[index];
-                  return ListTile(
-                    title: Text(service.nom),
-                    subtitle: Text("Prix: ${service.prixTotal} FCFA"),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => ServiceFormPage(service: service),
+                  return Card(
+                    elevation: 2,
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 6,
+                      horizontal: 12,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        title: Text(
+                          service.nom,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          "Prix: ${service.prixTotal} FCFA",
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.edit,
+                                color: Colors.green.shade800,
+                                size: 30,
+                              ),
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      ServiceFormPage(service: service),
+                                ),
+                              ),
                             ),
-                          ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red.shade800,
+                                size: 30,
+                              ),
+                              onPressed: () {
+                                context.read<ServiceBloc>().add(
+                                  DeleteService(service),
+                                );
+                              },
+                            ),
+                          ],
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            context.read<ServiceBloc>().add(
-                              DeleteService(service),
-                            );
-                          },
-                        ),
-                      ],
+                      ),
                     ),
                   );
                 },
