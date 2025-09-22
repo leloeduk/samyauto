@@ -125,7 +125,7 @@ class _StatCard extends StatelessWidget {
                   fontSize: 18,
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 10),
               Text(
                 value,
                 style: const TextStyle(

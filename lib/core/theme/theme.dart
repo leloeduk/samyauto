@@ -4,7 +4,7 @@ class AppColors {
   static const Color primary = Color(0xFF0D1165); // couleur principale
   static const Color background = Color(0xFFF6F1E8); // background global
   static const Color white = Colors.white;
-  static Color grey = Colors.grey.shade500;
+  static const Color grey = Colors.grey;
   static Color greyLight = Colors.grey.shade300;
   static const Color blueDark = Color(0xFF0A0A75);
 }
